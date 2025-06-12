@@ -33,6 +33,12 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+      Runtime: java11
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: Canary10Percent5Minutes
+      Architectures:
+        - x86_64
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
