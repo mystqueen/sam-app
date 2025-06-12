@@ -35,12 +35,20 @@ permissions:
   contents: read
 jobs:
   test:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: |
-          # trigger the tests here
+  if: github.event_name == 'push'
+  runs-on: ubuntu-latest
+  steps:
+    - name: Check out Repository
+      uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 11
+        distribution: 'temurin'
+    - name: Packaging Jar
+      id: packaging-jar
+      shell: bash
+      run: cd HelloWorldFunction ; mvn clean install
 
   delete-feature:
     if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
